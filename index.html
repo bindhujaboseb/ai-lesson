@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🤖 Types of AI – Grade 6 Explorer</title>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       STYLESHEET
+       Bright, playful design for Grade-6 students.
+       Each section has its own colour theme:
+         Supervised   → blue   (#2563EB)
+         Unsupervised → teal   (#0D9488)
+         Reinforcement→ orange (#EA580C)
+  ═══════════════════════════════════════════════════════════════════════ -->
+  <style>
+    /* ── Google Font Import ─────────────────────────────────── */
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+    /* ── CSS Variables ──────────────────────────────────────── */
+    :root {
+      --blue:   #2563EB;
+      --blue-l: #DBEAFE;
+      --teal:   #0D9488;
+      --teal-l: #CCFBF1;
+      --orange: #EA580C;
+      --ora-l:  #FFEDD5;
+      --navy:   #1B2A6B;
+      --dark:   #1E293B;
+      --gray:   #64748B;
+      --light:  #F8FAFC;
+      --white:  #FFFFFF;
+      --yellow: #FCD34D;
+      --green:  #16A34A;
+      --red:    #EF4444;
+      --radius: 16px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.10);
+    }
+
+    /* ── Reset & Base ────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #1B2A6B 0%, #0f172a 100%);
+      min-height: 100vh;
+      color: var(--dark);
+      padding: 0 0 60px;
+    }
+
+    /* ── Header ─────────────────────────────────────────────── */
+    header {
+      text-align: center;
+      padding: 40px 20px 24px;
+      color: var(--white);
+    }
+    header .robot { font-size: 72px; display: block; margin-bottom: 8px;
+      animation: bounce 2s infinite ease-in-out; }
+    @keyframes bounce {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-10px); }
+    }
+    header h1 { font-size: clamp(24px, 5vw, 42px); font-weight: 900; }
+    header p  { font-size: 16px; color: #94A3B8; margin-top: 6px; }
+
+    /* ── Navigation Tabs ─────────────────────────────────────── */
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 0 20px 24px;
+      flex-wrap: wrap;
+    }
+    .nav-btn {
+      padding: 12px 26px;
+      border: none;
+      border-radius: 50px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s, background 0.2s;
+      color: var(--white);
+      box-shadow: var(--shadow);
+    }
+    .nav-btn:hover  { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.2); }
+    .nav-btn.active { transform: translateY(-3px) scale(1.06); }
+    .nav-btn[data-section="supervised"]    { background: var(--blue); }
+    .nav-btn[data-section="unsupervised"]  { background: var(--teal); }
+    .nav-btn[data-section="reinforcement"] { background: var(--orange); }
+
+    /* ── Main Content Card ───────────────────────────────────── */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .section {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+    .section.active { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Section Hero Banner ─────────────────────────────────── */
+    .hero {
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      color: var(--white);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      box-shadow: var(--shadow);
+    }
+    .hero .big-emoji { font-size: 64px; flex-shrink: 0; }
+    .hero h2  { font-size: clamp(20px, 4vw, 32px); font-weight: 900; }
+    .hero .tagline { font-size: 15px; opacity: 0.9; margin-top: 4px; font-style: italic; }
+
+    /* Per-section hero colours */
+    #supervised   .hero { background: linear-gradient(135deg, #1D4ED8, #3B82F6); }
+    #unsupervised .hero { background: linear-gradient(135deg, #0F766E, #14B8A6); }
+    #reinforcement .hero { background: linear-gradient(135deg, #9A3412, #EA580C); }
+
+    /* ── Card ────────────────────────────────────────────────── */
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+    }
+    .card h3 {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card p, .card li {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--dark);
+    }
+    .card ul { padding-left: 20px; }
+    .card ul li { margin-bottom: 6px; }
+
+    /* ── Step Flow ───────────────────────────────────────────── */
+    .steps {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+    .step-box {
+      flex: 1 1 100px;
+      background: var(--light);
+      border-radius: 12px;
+      padding: 12px 10px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      min-width: 90px;
+    }
+    .step-box .step-icon { font-size: 26px; display: block; margin-bottom: 4px; }
+    .arrow { font-size: 20px; color: var(--gray); }
+
+    /* ── Interaction Area ────────────────────────────────────── */
+    .interaction-box {
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+    }
+    #supervised   .interaction-box { background: var(--blue-l); border: 2px solid #93C5FD; }
+    #unsupervised .interaction-box { background: var(--teal-l); border: 2px solid #5EEAD4; }
+    #reinforcement .interaction-box { background: var(--ora-l); border: 2px solid #FDBA74; }
+
+    .interaction-box h3 {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+    #supervised   .interaction-box h3 { color: var(--blue); }
+    #unsupervised .interaction-box h3 { color: var(--teal); }
+    #reinforcement .interaction-box h3 { color: var(--orange); }
+
+    /* ── Buttons (general) ───────────────────────────────────── */
+    .btn {
+      border: none;
+      border-radius: 50px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      padding: 10px 22px;
+      transition: transform 0.12s, box-shadow 0.12s;
+      color: var(--white);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .btn:hover { transform: scale(1.05); box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
+    .btn-blue   { background: var(--blue); }
+    .btn-teal   { background: var(--teal); }
+    .btn-orange { background: var(--orange); }
+    .btn-gray   { background: var(--gray); }
+
+    /* ── Feedback Toast ──────────────────────────────────────── */
+    .feedback {
+      margin-top: 14px;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      display: none;
+    }
+    .feedback.show { display: block; animation: fadeIn 0.3s ease; }
+    .feedback.correct { background: #DCFCE7; color: #15803D; border: 2px solid #86EFAC; }
+    .feedback.wrong   { background: #FEE2E2; color: #B91C1C; border: 2px solid #FCA5A5; }
+    .feedback.info    { background: #FEF9C3; color: #854D0E; border: 2px solid #FDE047; }
+
+    /* ══════════════════════════════════════════════════════════
+       SUPERVISED LEARNING – Fruit Classifier Mini-Game
+    ══════════════════════════════════════════════════════════ */
+    #fruit-game { text-align: center; }
+    .fruit-display {
+      font-size: 80px;
+      margin: 10px 0 16px;
+      display: block;
+      animation: pop 0.4s ease;
+    }
+    @keyframes pop {
+      0%   { transform: scale(0.5); opacity: 0; }
+      80%  { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .fruit-question {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 14px;
+    }
+    #fruit-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    #fruit-btns button {
+      padding: 10px 18px;
+      border-radius: 50px;
+      border: 2px solid #CBD5E1;
+      background: var(--white);
+      font-family: 'Nunito', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    #fruit-btns button:hover { background: var(--blue-l); border-color: var(--blue); }
+    #fruit-score { font-size: 14px; color: var(--gray); margin-top: 10px; }
+
+    /* ══════════════════════════════════════════════════════════
+       UNSUPERVISED LEARNING – Drag-to-Group Mini-Activity
+    ══════════════════════════════════════════════════════════ */
+    .items-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin: 12px 0;
+    }
+    .item-chip {
+      padding: 10px 16px;
+      border-radius: 50px;
+      font-size: 20px;
+      cursor: pointer;
+      border: 3px solid #CBD5E1;
+      background: var(--white);
+      transition: all 0.15s;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      user-select: none;
+    }
+    .item-chip:hover { transform: scale(1.1); border-color: var(--teal); }
+    .item-chip.selected { border-color: var(--teal); background: var(--teal-l); }
+    .item-chip.placed   { opacity: 0.4; cursor: default; pointer-events: none; }
+
+    .groups-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin: 14px 0;
+    }
+    .group-zone {
+      flex: 1 1 180px;
+      min-height: 100px;
+      border: 3px dashed #5EEAD4;
+      border-radius: 16px;
+      padding: 12px;
+      background: rgba(255,255,255,0.6);
+    }
+    .group-zone h4 {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--teal);
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    .group-zone .placed-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      min-height: 40px;
+    }
+    .placed-chip {
+      padding: 6px 12px;
+      border-radius: 50px;
+      background: var(--teal);
+      color: var(--white);
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       REINFORCEMENT LEARNING – Reward Game
+    ══════════════════════════════════════════════════════════ */
+    .rl-scenario {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+    .rl-situation {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 12px;
+    }
+    .rl-situation .big { font-size: 48px; display: block; margin-bottom: 8px; }
+    .rl-choices { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .rl-choices button {
+      padding: 10px 18px;
+      border-radius: 12px;
+      border: 2px solid #CBD5E1;
+      background: var(--white);
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+      max-width: 220px;
+    }
+    .rl-choices button:hover { background: var(--ora-l); border-color: var(--orange); }
+
+    .score-display {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .score-chip {
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 800;
+    }
+    .score-reward  { background: #DCFCE7; color: var(--green); }
+    .score-penalty { background: #FEE2E2; color: var(--red); }
+    .score-total   { background: #FEF9C3; color: #854D0E; }
+
+    /* ── Progress Stars ──────────────────────────────────────── */
+    .stars {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+
+    /* ── Footer ─────────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      color: #475569;
+      font-size: 13px;
+      margin-top: 40px;
+      padding: 0 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════ HEADER ═══════ -->
+  <header>
+    <span class="robot">🤖</span>
+    <h1>Types of AI — Explorer</h1>
+    <p>Grade 6 &nbsp;|&nbsp; Click a button to start learning! 🚀</p>
+  </header>
+
+  <!-- ═══════ NAV TABS ═══════ -->
+  <nav>
+    <!-- Each button targets one section -->
+    <button class="nav-btn active" data-section="supervised"
+            onclick="showSection('supervised')">
+      👩‍🏫 Supervised Learning
+    </button>
+    <button class="nav-btn" data-section="unsupervised"
+            onclick="showSection('unsupervised')">
+      🔍 Unsupervised Learning
+    </button>
+    <button class="nav-btn" data-section="reinforcement"
+            onclick="showSection('reinforcement')">
+      🎮 Reinforcement Learning
+    </button>
+  </nav>
+
+  <main>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 1 – SUPERVISED LEARNING
+    ═══════════════════════════════════════════════════════ -->
+    <div id="supervised" class="section active">
+
+      <!-- Hero Banner -->
+      <div class="hero">
+        <span class="big-emoji">👩‍🏫</span>
+        <div>
+          <h2>Supervised Learning</h2>
+          <div class="tagline">"AI learns from labelled examples — just like studying with a teacher!"</div>
+        </div>
+      </div>
+
+      <!-- Explanation Card -->
+      <div class="card">
+        <h3>🧠 What is it?</h3>
+        <p>In Supervised Learning, we give the AI <strong>lots of examples WITH the correct answers</strong> attached.</p>
+        <br />
+        <ul>
+          <li>📌 The AI studies the examples and their labels</li>
+          <li>📌 It finds patterns — like what makes an apple look like an apple</li>
+          <li>📌 Then it can <strong>predict answers</strong> for brand-new data it has never seen!</li>
+          <li>📌 It's like learning maths from a textbook that shows all the answers</li>
+        </ul>
+
+        <!-- Step-by-step flow diagram -->
+        <div class="steps">
+          <div class="step-box"><span class="step-icon">📚</span>Labelled<br/>Data</div>
+          <span class="arrow">→</span>
+          <div class="step-box"><span class="step-icon">🤖</span>AI<br/>Training</div>
+          <span class="arrow">→</span>
+          <div class="step-box"><span class="step-icon">🔎</span>New<br/>Input</div>
+          <span class="arrow">→</span>
+          <div class="step-box"><span class="step-icon">✅</span>AI<br/>Prediction</div>
+        </div>
+      </div>
+
+      <!-- Examples Card -->
+      <div class="card">
+        <h3>🌍 Real-Life Examples</h3>
+        <ul>
+          <li>🍎 <strong>Fruit Classifier</strong> — AI trained on 1000s of labelled fruit photos can name any fruit</li>
+          <li>📧 <strong>Spam Filter</strong> — Trained on emails labelled "spam" or "not spam"</li>
+          <li>📊 <strong>Marks Predictor</strong> — Studies hours vs exam score data to predict grades</li>
+          <li>✈️ <strong>UAE Airports</strong> — Face recognition trained on labelled photos for fast check-in</li>
+        </ul>
+      </div>
+
+      <!-- INTERACTIVE: Fruit Classifier Game -->
+      <div class="interaction-box">
+        <h3>🎮 Try It! — Be the AI Fruit Classifier</h3>
+        <p style="font-size:14px; margin-bottom:14px;">
+          The AI has been trained on labelled fruits. Now it's YOUR turn to classify!
+          Look at the fruit and pick the correct label. Can you score 5/5? 🏆
+        </p>
+
+        <div id="fruit-game">
+          <!-- The fruit emoji appears here -->
+          <span class="fruit-display" id="fruit-emoji">🍎</span>
+          <div class="fruit-question" id="fruit-question">What fruit is this?</div>
+          <div id="fruit-btns"></div>
+          <div id="fruit-score">Score: 0 / 5</div>
+        </div>
+
+        <!-- Feedback message shown after each answer -->
+        <div id="fruit-feedback" class="feedback"></div>
+
+        <br />
+        <!-- Restart button -->
+        <button class="btn btn-blue" onclick="startFruitGame()">🔄 Play Again</button>
+      </div>
+
+    </div><!-- /supervised -->
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 2 – UNSUPERVISED LEARNING
+    ═══════════════════════════════════════════════════════ -->
+    <div id="unsupervised" class="section">
+
+      <!-- Hero Banner -->
+      <div class="hero">
+        <span class="big-emoji">🔍</span>
+        <div>
+          <h2>Unsupervised Learning</h2>
+          <div class="tagline">"AI discovers hidden groups and patterns — with NO labels!"</div>
+        </div>
+      </div>
+
+      <!-- Explanation Card -->
+      <div class="card">
+        <h3>🧠 What is it?</h3>
+        <p>In Unsupervised Learning, the AI gets data with <strong>NO labels and NO correct answers</strong>. It must find groups or patterns all by itself!</p>
+        <br />
+        <ul>
+          <li>🧦 Imagine emptying a bag of mixed socks — sort them without being told how</li>
+          <li>📌 The AI looks for things that are SIMILAR and puts them together</li>
+          <li>📌 These groups are called <strong>clusters</strong></li>
+          <li>📌 Nobody tells the AI what the groups should be — it figures it out!</li>
+        </ul>
+
+        <div class="steps">
+          <div class="step-box"><span class="step-icon">📦</span>Raw Data<br/>(no labels)</div>
+          <span class="arrow">→</span>
+          <div class="step-box"><span class="step-icon">🤖</span>AI looks<br/>for patterns</div>
+          <span class="arrow">→</span>
+          <div class="step-box"><span class="step-icon">🗂️</span>Groups<br/>discovered!</div>
+        </div>
+      </div>
+
+      <!-- Examples Card -->
+      <div class="card">
+        <h3>🌍 Real-Life Examples</h3>
+        <ul>
+          <li>🧦 <strong>Sock Sorting</strong> — Group socks by colour without being told how many groups</li>
+          <li>🎵 <strong>Spotify Playlists</strong> — Groups users who listen to similar music</li>
+          <li>🛍️ <strong>Mall of the Emirates</strong> — Groups shoppers by buying habits for personalised offers</li>
+          <li>🌡️ <strong>Weather Patterns</strong> — AI finds clusters of similar weather conditions</li>
+        </ul>
+      </div>
+
+      <!-- INTERACTIVE: Sorting Activity -->
+      <div class="interaction-box">
+        <h3>🎮 Try It! — Sort Like an AI</h3>
+        <p style="font-size:14px; margin-bottom:14px;">
+          Below are 8 items with no labels. Click an item to select it, then click a group box to place it.
+          Try to sort them into <strong>Fruits 🍓</strong>, <strong>Animals 🐾</strong> and <strong>Vehicles 🚗</strong>!
+        </p>
+
+        <!-- Items to sort (chips) -->
+        <div class="items-row" id="sort-items">
+          <!-- Generated by JS -->
+        </div>
+
+        <!-- Hint: selected item display -->
+        <div id="selected-hint" style="text-align:center; font-size:14px; color:var(--teal); font-weight:700; min-height:22px; margin-bottom:10px;"></div>
+
+        <!-- Group drop zones -->
+        <div class="groups-row">
+          <div class="group-zone" id="zone-fruits" onclick="placeItem('fruits')">
+            <h4>🍓 Fruits</h4>
+            <div class="placed-items" id="placed-fruits"></div>
+          </div>
+          <div class="group-zone" id="zone-animals" onclick="placeItem('animals')">
+            <h4>🐾 Animals</h4>
+            <div class="placed-items" id="placed-animals"></div>
+          </div>
+          <div class="group-zone" id="zone-vehicles" onclick="placeItem('vehicles')">
+            <h4>🚗 Vehicles</h4>
+            <div class="placed-items" id="placed-vehicles"></div>
+          </div>
+        </div>
+
+        <div id="sort-feedback" class="feedback"></div>
+        <br />
+        <button class="btn btn-teal" onclick="checkSort()">✅ Check My Sorting!</button>
+        &nbsp;
+        <button class="btn btn-gray" onclick="resetSort()">🔄 Reset</button>
+      </div>
+
+    </div><!-- /unsupervised -->
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 3 – REINFORCEMENT LEARNING
+    ═══════════════════════════════════════════════════════ -->
+    <div id="reinforcement" class="section">
+
+      <!-- Hero Banner -->
+      <div class="hero">
+        <span class="big-emoji">🎮</span>
+        <div>
+          <h2>Reinforcement Learning</h2>
+          <div class="tagline">"AI learns by TRYING, making mistakes, and collecting rewards!"</div>
+        </div>
+      </div>
+
+      <!-- Explanation Card -->
+      <div class="card">
+        <h3>🧠 What is it?</h3>
+        <p>In Reinforcement Learning, the AI has an <strong>AGENT</strong> (a decision-maker) placed in an environment. It tries actions and:</p>
+        <br />
+        <ul>
+          <li>🏆 Gets a <strong>REWARD</strong> for good actions (score goes UP!)</li>
+          <li>❌ Gets a <strong>PENALTY</strong> for bad actions (score goes DOWN!)</li>
+          <li>🔁 Repeats thousands of times until it learns the best strategy</li>
+          <li>🎮 It's exactly like learning a video game — fail, learn, improve!</li>
+        </ul>
+
+        <div class="steps">
+          <div class="step-box"><span class="step-icon">🤖</span>Agent<br/>takes action</div>
+          <span class="arrow">→</span>
+          <div class="step-box"><span class="step-icon">🌍</span>Environment<br/>responds</div>
+          <span class="arrow">→</span>
+          <div class="step-box"><span class="step-icon">🏆</span>Reward or<br/>Penalty</div>
+          <span class="arrow">→</span>
+          <div class="step-box"><span class="step-icon">🧠</span>AI updates<br/>strategy</div>
+        </div>
+      </div>
+
+      <!-- Examples Card -->
+      <div class="card">
+        <h3>🌍 Real-Life Examples</h3>
+        <ul>
+          <li>🐶 <strong>Dog Training</strong> — Sit = treat 🍖 (reward!). Jump on sofa = "No!" (penalty)</li>
+          <li>♟️ <strong>Chess / AlphaGo AI</strong> — Played millions of games, won world championship</li>
+          <li>🚗 <strong>Self-Driving Cars</strong> — Learn by simulating millions of virtual drives</li>
+          <li>🤖 <strong>Dubai Robots</strong> — RoboCop in Dubai learns patrol routes through trial and reward</li>
+        </ul>
+      </div>
+
+      <!-- INTERACTIVE: RL Decision Game -->
+      <div class="interaction-box">
+        <h3>🎮 Try It! — The Reward Decision Game</h3>
+        <p style="font-size:14px; margin-bottom:14px;">
+          YOU are the AI agent! Read each situation and choose the best action to earn rewards.
+          Try to get <strong>+10 points</strong> to complete your training! 🏅
+        </p>
+
+        <!-- Score display -->
+        <div class="score-display">
+          <div class="score-chip score-reward"  id="rl-rewards" >🏆 Rewards: 0</div>
+          <div class="score-chip score-penalty" id="rl-penalties">❌ Penalties: 0</div>
+          <div class="score-chip score-total"   id="rl-total">   ⭐ Score: 0 / 10</div>
+        </div>
+
+        <!-- Progress stars -->
+        <div class="stars" id="rl-stars">⬜⬜⬜⬜⬜</div>
+
+        <!-- Current scenario card -->
+        <div class="rl-scenario" id="rl-scenario-box">
+          <!-- Filled by JS -->
+        </div>
+
+        <div id="rl-feedback" class="feedback"></div>
+      </div>
+
+    </div><!-- /reinforcement -->
+
+  </main>
+
+  <footer>
+    <p>🤖 AI Types Explorer &nbsp;|&nbsp; Grade 6 CS Lesson &nbsp;|&nbsp; Built with ❤️ for curious learners</p>
+  </footer>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       JAVASCRIPT
+  ═══════════════════════════════════════════════════════════════════ -->
+  <script>
+
+    /* ══════════════════════════════════════════════════════════
+       NAV: Show/Hide Sections
+    ══════════════════════════════════════════════════════════ */
+    // Called when a nav button is clicked
+    function showSection(name) {
+      // Hide all sections
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      // Show the clicked section
+      document.getElementById(name).classList.add('active');
+
+      // Update nav button active state
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.section === name);
+      });
+    }
+
+
+    /* ══════════════════════════════════════════════════════════
+       SUPERVISED – Fruit Classifier Mini-Game
+    ══════════════════════════════════════════════════════════ */
+
+    // All fruits the AI has been "trained" on
+    const fruits = [
+      { emoji: '🍎', name: 'Apple',      options: ['Apple', 'Mango', 'Banana', 'Grape'] },
+      { emoji: '🍌', name: 'Banana',     options: ['Lemon', 'Banana', 'Pear', 'Peach'] },
+      { emoji: '🍇', name: 'Grape',      options: ['Apple', 'Plum', 'Grape', 'Berry'] },
+      { emoji: '🥭', name: 'Mango',      options: ['Papaya', 'Mango', 'Pineapple', 'Apple'] },
+      { emoji: '🍓', name: 'Strawberry', options: ['Cherry', 'Strawberry', 'Tomato', 'Apple'] },
+      { emoji: '🍉', name: 'Watermelon', options: ['Melon', 'Cucumber', 'Watermelon', 'Lime'] },
+      { emoji: '🍋', name: 'Lemon',      options: ['Orange', 'Grapefruit', 'Lemon', 'Lime'] },
+      { emoji: '🍑', name: 'Peach',      options: ['Mango', 'Nectarine', 'Peach', 'Apricot'] },
+    ];
+
+    let fruitQueue = [];  // shuffled list of fruits for this game session
+    let fruitScore = 0;
+    let fruitTotal = 5;
+    let fruitCurrent = null;
+
+    // Shuffle an array (Fisher-Yates)
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    // Start or restart the fruit game
+    function startFruitGame() {
+      fruitScore = 0;
+      fruitQueue = shuffle(fruits).slice(0, fruitTotal);
+      hideFeedback('fruit-feedback');
+      nextFruit();
+    }
+
+    // Show the next fruit question
+    function nextFruit() {
+      if (fruitQueue.length === 0) {
+        // Game over
+        document.getElementById('fruit-emoji').textContent = '🏆';
+        document.getElementById('fruit-question').textContent =
+          `Game Over! You scored ${fruitScore} / ${fruitTotal}. ${fruitScore === fruitTotal ? 'Perfect! 🌟' : 'Try again!'}`;
+        document.getElementById('fruit-btns').innerHTML = '';
+        document.getElementById('fruit-score').textContent = `Final Score: ${fruitScore} / ${fruitTotal}`;
+        return;
+      }
+
+      fruitCurrent = fruitQueue.pop();
+      // Animate the emoji
+      const emojiEl = document.getElementById('fruit-emoji');
+      emojiEl.textContent = fruitCurrent.emoji;
+      emojiEl.style.animation = 'none';
+      setTimeout(() => emojiEl.style.animation = 'pop 0.4s ease', 10);
+
+      document.getElementById('fruit-question').textContent = 'What fruit is this?';
+      document.getElementById('fruit-score').textContent =
+        `Score: ${fruitScore} / ${fruitTotal}  (${fruitQueue.length} left)`;
+
+      hideFeedback('fruit-feedback');
+
+      // Shuffle the answer options
+      const opts = shuffle(fruitCurrent.options);
+      const container = document.getElementById('fruit-btns');
+      container.innerHTML = '';
+      opts.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.textContent = opt;
+        btn.onclick = () => checkFruit(opt);
+        container.appendChild(btn);
+      });
+    }
+
+    // Check if the student picked the right fruit
+    function checkFruit(choice) {
+      const fb = document.getElementById('fruit-feedback');
+      if (choice === fruitCurrent.name) {
+        fruitScore++;
+        showFeedback('fruit-feedback', `✅ Correct! That is a ${fruitCurrent.name} ${fruitCurrent.emoji}! Great classifying! 🤖`, 'correct');
+      } else {
+        showFeedback('fruit-feedback', `❌ Not quite! That was a ${fruitCurrent.name} ${fruitCurrent.emoji}. Keep training! 💪`, 'wrong');
+      }
+      // Disable all buttons after answering
+      document.querySelectorAll('#fruit-btns button').forEach(b => b.disabled = true);
+      // Move to next fruit after a short delay
+      setTimeout(nextFruit, 1600);
+    }
+
+
+    /* ══════════════════════════════════════════════════════════
+       UNSUPERVISED – Sorting Activity
+    ══════════════════════════════════════════════════════════ */
+
+    // Items to sort (emoji + category)
+    const sortableItems = [
+      { emoji: '🍓', category: 'fruits'   },
+      { emoji: '🐘', category: 'animals'  },
+      { emoji: '🚗', category: 'vehicles' },
+      { emoji: '🍌', category: 'fruits'   },
+      { emoji: '🦁', category: 'animals'  },
+      { emoji: '🚀', category: 'vehicles' },
+      { emoji: '🍇', category: 'fruits'   },
+      { emoji: '🦊', category: 'animals'  },
+      { emoji: '🚂', category: 'vehicles' },
+      { emoji: '🍎', category: 'fruits'   },
+    ];
+
+    let selectedItem = null;   // the currently selected chip
+    let placedItems = {};      // { emoji: category }
+
+    // Build the chips on page load
+    function buildSortItems() {
+      const container = document.getElementById('sort-items');
+      container.innerHTML = '';
+      shuffle(sortableItems).forEach(item => {
+        const chip = document.createElement('div');
+        chip.className = 'item-chip';
+        chip.textContent = item.emoji;
+        chip.dataset.emoji    = item.emoji;
+        chip.dataset.category = item.category;
+        chip.onclick = () => selectItem(chip, item);
+        container.appendChild(chip);
+      });
+      selectedItem = null;
+      document.getElementById('selected-hint').textContent = '';
+    }
+
+    // Select an item chip
+    function selectItem(el, item) {
+      if (el.classList.contains('placed')) return;
+      // Deselect previous
+      document.querySelectorAll('.item-chip').forEach(c => c.classList.remove('selected'));
+      selectedItem = item;
+      el.classList.add('selected');
+      document.getElementById('selected-hint').textContent =
+        `Selected: ${item.emoji}  — now click a group box below!`;
+    }
+
+    // Place the selected item into a group zone
+    function placeItem(zone) {
+      if (!selectedItem) {
+        document.getElementById('selected-hint').textContent = '👆 Click an item first!';
+        return;
+      }
+      // Add to placed list
+      placedItems[selectedItem.emoji] = zone;
+
+      // Add chip to group zone
+      const placed = document.getElementById('placed-' + zone);
+      const span = document.createElement('span');
+      span.className = 'placed-chip';
+      span.textContent = selectedItem.emoji;
+      placed.appendChild(span);
+
+      // Mark the original chip as placed
+      const original = document.querySelector(`.item-chip[data-emoji="${selectedItem.emoji}"]`);
+      if (original) original.classList.add('placed');
+
+      selectedItem = null;
+      document.getElementById('selected-hint').textContent = '✅ Placed! Pick another item.';
+      hideFeedback('sort-feedback');
+    }
+
+    // Check the student's groupings
+    function checkSort() {
+      let correct = 0, total = 0;
+      sortableItems.forEach(item => {
+        if (placedItems[item.emoji]) {
+          total++;
+          if (placedItems[item.emoji] === item.category) correct++;
+        }
+      });
+      if (total === 0) {
+        showFeedback('sort-feedback', '🤔 Place some items first! Click an emoji, then click a group.', 'info');
+        return;
+      }
+      if (correct === total && total === sortableItems.length) {
+        showFeedback('sort-feedback', `🎉 AMAZING! All ${correct}/${total} correct! You sorted just like an Unsupervised AI! 🤖🌟`, 'correct');
+      } else {
+        showFeedback('sort-feedback', `✅ ${correct} correct out of ${total} placed. Keep sorting — some items might be in the wrong group!`, correct >= total * 0.7 ? 'correct' : 'wrong');
+      }
+    }
+
+    function resetSort() {
+      placedItems = {};
+      ['fruits', 'animals', 'vehicles'].forEach(z => {
+        document.getElementById('placed-' + z).innerHTML = '';
+      });
+      hideFeedback('sort-feedback');
+      buildSortItems();
+    }
+
+
+    /* ══════════════════════════════════════════════════════════
+       REINFORCEMENT – Decision Reward Game
+    ══════════════════════════════════════════════════════════ */
+
+    // Scenarios: each has a situation, choices, and a best choice index
+    const rlScenarios = [
+      {
+        situation: "🐶  You are training a dog. It just SAT nicely. What do you do?",
+        choices: [
+          { text: "🍖 Give it a treat",   reward: +2, msg: "Yes! Reward the good behaviour. The dog will sit more!" },
+          { text: "😐 Ignore it",          reward: -1, msg: "Hmm, ignoring good behaviour means the dog won't know it was right." },
+          { text: "🚫 Say 'No!'",          reward: -2, msg: "That's a penalty for good behaviour — the dog will be confused!" },
+        ]
+      },
+      {
+        situation: "🎮  An AI is playing a maze game. It reaches the exit! What happens?",
+        choices: [
+          { text: "🏆 +10 reward points",  reward: +2, msg: "Correct! Big reward for reaching the goal — AI learns this path is great!" },
+          { text: "😴 Nothing happens",     reward: -1, msg: "If nothing happens, the AI has no reason to find the exit again." },
+          { text: "❌ -5 penalty points",   reward: -2, msg: "Penalising a win makes no sense! The AI would avoid the exit." },
+        ]
+      },
+      {
+        situation: "🚗  A self-driving car swerves off the road. What should happen?",
+        choices: [
+          { text: "🏆 Give it a reward",   reward: -2, msg: "No! Rewarding bad driving means the car will do it again!" },
+          { text: "❌ Give it a penalty",   reward: +2, msg: "Yes! Penalty for going off-road — the AI learns to stay on the road!" },
+          { text: "😐 Do nothing",          reward: -1, msg: "Without feedback, the AI can't improve its driving." },
+        ]
+      },
+      {
+        situation: "♟️  The AI chess player just won a game against the world champion!",
+        choices: [
+          { text: "🏆 Big reward!",         reward: +2, msg: "Yes! Huge reward for winning — the AI will repeat winning strategies!" },
+          { text: "😴 Small reward",        reward: 0,  msg: "A small reward is okay but a big win deserves a big reward!" },
+          { text: "❌ Penalty for winning", reward: -2, msg: "Penalising a win is wrong — the AI would learn NOT to win!" },
+        ]
+      },
+      {
+        situation: "🤖  An AI robot bumps into a wall. What should happen?",
+        choices: [
+          { text: "🏆 Reward it",           reward: -2, msg: "No! Rewarding bumping means it will keep crashing!" },
+          { text: "❌ Penalty (-1 point)",   reward: +2, msg: "Correct! Penalty for hitting a wall — the AI learns to navigate around it!" },
+          { text: "😐 No feedback",         reward: -1, msg: "Without feedback, the robot can't learn to avoid walls." },
+        ]
+      },
+    ];
+
+    let rlScore = 0;
+    let rlRewards = 0;
+    let rlPenalties = 0;
+    let rlQueue = [];
+
+    // Start the RL game
+    function startRLGame() {
+      rlScore     = 0;
+      rlRewards   = 0;
+      rlPenalties = 0;
+      rlQueue     = shuffle(rlScenarios);
+      updateRLScore();
+      hideFeedback('rl-feedback');
+      nextRLScenario();
+    }
+
+    // Show the next scenario
+    function nextRLScenario() {
+      if (rlScore >= 10 || rlQueue.length === 0) {
+        document.getElementById('rl-scenario-box').innerHTML =
+          `<div class="rl-situation"><span class="big">🏅</span>
+           Training Complete! Your score: ${rlScore}/10<br/>
+           ${rlScore >= 8 ? 'Outstanding AI Trainer! 🌟' : rlScore >= 5 ? 'Good effort! Try again to improve!' : 'Keep practising!'}
+           </div>
+           <button class="btn btn-orange" onclick="startRLGame()">🔄 Train Again</button>`;
+        return;
+      }
+
+      const scenario = rlQueue.pop();
+      const choicesHtml = shuffle(scenario.choices.map((c, i) => `
+        <button onclick='handleRLChoice(${c.reward}, "${c.msg.replace(/'/g,"&#39;")}")'>${c.text}</button>
+      `)).join('');
+
+      document.getElementById('rl-scenario-box').innerHTML = `
+        <div class="rl-situation">${scenario.situation}</div>
+        <div class="rl-choices">${choicesHtml}</div>
+      `;
+      hideFeedback('rl-feedback');
+    }
+
+    // Handle a choice in the RL game
+    function handleRLChoice(reward, msg) {
+      rlScore = Math.max(0, rlScore + reward);
+      if (reward > 0) {
+        rlRewards++;
+        showFeedback('rl-feedback', '🏆 ' + msg, 'correct');
+      } else if (reward < 0) {
+        rlPenalties++;
+        showFeedback('rl-feedback', '❌ ' + msg, 'wrong');
+      } else {
+        showFeedback('rl-feedback', 'ℹ️ ' + msg, 'info');
+      }
+      updateRLScore();
+      // Disable buttons after choice
+      document.querySelectorAll('.rl-choices button').forEach(b => b.disabled = true);
+      setTimeout(nextRLScenario, 2000);
+    }
+
+    // Update the score display and stars
+    function updateRLScore() {
+      document.getElementById('rl-rewards').textContent   = `🏆 Rewards: ${rlRewards}`;
+      document.getElementById('rl-penalties').textContent = `❌ Penalties: ${rlPenalties}`;
+      document.getElementById('rl-total').textContent     = `⭐ Score: ${rlScore} / 10`;
+      // Stars (1 star per 2 points)
+      const stars = Math.min(5, Math.floor(rlScore / 2));
+      document.getElementById('rl-stars').textContent =
+        '⭐'.repeat(stars) + '⬜'.repeat(5 - stars);
+    }
+
+
+    /* ══════════════════════════════════════════════════════════
+       UTILITY: Show/Hide feedback messages
+    ══════════════════════════════════════════════════════════ */
+    function showFeedback(id, msg, type) {
+      const el = document.getElementById(id);
+      el.textContent = msg;
+      el.className = 'feedback show ' + type;
+    }
+    function hideFeedback(id) {
+      document.getElementById(id).className = 'feedback';
+    }
+
+
+    /* ══════════════════════════════════════════════════════════
+       INIT: Run on page load
+    ══════════════════════════════════════════════════════════ */
+    window.onload = function() {
+      startFruitGame();   // Start the fruit game ready
+      buildSortItems();   // Build the sorting chips
+      startRLGame();      // Set up the RL game
+    };
+
+  </script>
+
+</body>
+</html>
